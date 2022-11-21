@@ -32,6 +32,10 @@ class PermissionTableSeeder extends Seeder
             'permission-create',
             'permission-edit',
             'permission-delete',
+            'category-list',
+            'category-create',
+            'category-edit',
+            'category-delete',
 
         ];
 

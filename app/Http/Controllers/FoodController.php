@@ -10,15 +10,9 @@ class FoodController extends Controller
     public function index()
     {
         $data = Food::latest()->get();
-        return view('food.index', compact('data'));
+        return response()->json($data);
+        //return array_reverse($data);
     }
-
-
-    public function create()
-    {
-        return view('food.create');
-    }
-
 
     public function store(Request $request)
     {
@@ -28,25 +22,23 @@ class FoodController extends Controller
             'price'=>'required',
         ]);
 
-        Food::create($request->all());
-        return redirect()->route('food.index')
-            ->with('success', 'Record added successfully');
+        $food = new Food([
+            'title'=>$request->input('title'),
+            'description'=>$request->input('description'),
+            'price'=>$request->input('price'),
+        ]);
+        $food->save();
+        return response()->json('Food added successfully');
     }
 
 
-    public function show(Food $food)
+    public function show($id)
     {
-        return view('food.show', ['food'=>$food]);
+        $food = Food::find($id);
+        return response()->json($food);
     }
 
-
-    public function edit(Food $food)
-    {
-        return view('food.edit', ['food'=>$food]);
-    }
-
-
-    public function update(Request $request, Food $food)
+    public function update(Request $request, $id)
     {
         $validator = $request->validate([
             'title'=>'required',
@@ -54,16 +46,15 @@ class FoodController extends Controller
             'price'=>'required',
         ]);
 
+        $food = Food::find($id);
         $food->update($request->all());
-        return redirect()->route('food.index')
-            ->with('success', 'Record  successfully updated');
+        return response()->json('Food updated successfully');
     }
 
-
-    public function destroy(Food $food)
+    public function destroy($id)
     {
-        $food->delete();
-        return redirect()->route('food.index')
-            ->with('success', 'Record deleted successfully');
+       $food = Food::find($id);
+       $food->delete();
+       return response()->json('Food deleted successfully');
     }
 }
