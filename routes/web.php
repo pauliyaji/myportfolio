@@ -18,13 +18,13 @@ use App\Http\Controllers\FoodController;
 |
 */
 
-Route::get('/', function () {
-    return view('welcome');
-});
+/*Route::get('/', function () {
+    return view('layouts/frontend');
+});*/
 
 Auth::routes();
 
-Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
+Route::get('/', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
 
 Route::group(['middleware'=> ['auth']], function() {
    Route::resource('permissions', PermissionController::class);

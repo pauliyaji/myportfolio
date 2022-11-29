@@ -18,6 +18,7 @@ use Illuminate\Support\Facades\Route;
 Route::post('/auth/login', [App\Http\Controllers\API\AuthController::class, 'login'] );
 Route::post('/auth/register', [App\Http\Controllers\API\AuthController::class, 'register']);
 Route::post('/auth/logout', [App\Http\Controllers\API\AuthController::class, 'logout']);
+Route::apiResource('food', \App\Http\Controllers\API\FoodController::class);
 
 Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
     return $request->user();
@@ -25,7 +26,6 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
 
 Route::group(['middleware'=>'auth:sanctum'], function(){
     Route::post('/auth/logout', [App\Http\Controllers\API\AuthController::class, 'logout']);
-    Route::apiResource('food', \App\Http\Controllers\API\FoodController::class);
     Route::apiResource('categories', \App\Http\Controllers\API\CategoryController::class);
 
 });
