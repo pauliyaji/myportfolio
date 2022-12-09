@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\API;
 
 use App\Http\Controllers\Controller;
+use App\Http\Requests\StoreFoodRequest;
 use App\Http\Resources\FoodResource;
 use App\Models\Food;
 use Illuminate\Http\Request;
@@ -21,32 +22,18 @@ class FoodController extends Controller
         ], 200);
     }
 
-    public function store(Request $request)
+    public function store(StoreFoodRequest $request)
     {
-        $request->validate([
-           'title'=>'required',
-           'description'=>'required',
-           'price'=>'required',
-           'category_id'=>'required',
-        ]);
-
-        $food = Food::create([
-           'title'=>$request->title,
-            'description'=>$request->description,
-            'price'=>$request->price,
-            'category_id'=>$request->category_id,
-        ]);
-
+        $foods = Food::create($request->validated());
         return response()->json([
-            'success'=>true,
-            'message'=>'Food created',
-            'data'=>$food
-        ], 201);
+            'status'=> 'success',
+            'data'=> $foods], 200);
     }
 
-    public function show(Food $food)
+    public function show($id)
     {
-        $food = new FoodResource($food);
+        //$food = new FoodResource($food);
+        $food = Food::find($id);
         if($food){
             return response()->json([
                 'success'=> true,
@@ -61,7 +48,7 @@ class FoodController extends Controller
 
     }
 
-    public function update(Request $request, Food $food)
+    public function update(Request $request, $id)
     {
         $request->validate([
            'title'=>'required',
@@ -69,8 +56,8 @@ class FoodController extends Controller
            'price'=>'required',
            'category_id'=>'required'
         ]);
-        $food = Food::find($food);
-        if($food){
+        $food = Food::find($id);
+
             $food->update([
                 'title'=> $request->title,
                 'description'=>$request->description,
@@ -80,30 +67,18 @@ class FoodController extends Controller
             return response()->json([
                 'success'=>true,
                 'message'=>'Food updated successfully',
-                'data'=>$food
             ], 200);
-        }
-        return response()->json([
-            'success'=>false,
-            'message'=>'Food not found'
-        ], 404);
+
     }
 
-    public function destroy(Food $food)
+    public function destroy($id)
     {
-        //$food->delete();
-        //return response()->json(null, 204);
-        if($food){
-            $food->delete();
-
+       $food = Food::find($id);
+       $food->delete();
             return response()->json([
                'success'=>true,
                'message'=>'Food deleted successfully'
             ], 200);
-        }
-        return response()->json([
-           'success'=>false,
-           'message'=>'Food not found'
-        ], 404);
+
     }
 }

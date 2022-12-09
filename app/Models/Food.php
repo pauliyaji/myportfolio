@@ -9,12 +9,13 @@ class Food extends Model
 {
     use HasFactory;
 
+    protected $table = 'foods';
     protected $fillable = [
         'title', 'description', 'price', 'category_id',
     ];
 
     public function category()
     {
-        return $this->belongsTo(Category::class);
+        return $this->belongsTo(Category::class, 'category_id');
     }
 }
