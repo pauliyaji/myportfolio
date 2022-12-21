@@ -22,6 +22,19 @@ use App\Http\Controllers\FoodController;
     return view('layouts/frontend');
 });*/
 
+Route::get('/pauldb', function(){
+    Artisan::call('migrate');
+    return response()->json("Database migration successful");
+});
+Route::get('/pauldbfresh', function(){
+    Artisan::call('migrate:fresh');
+    return response()->json('Database migration is FRESH');
+});
+Route::get('/pauldbseed', function(){
+    Artisan::call('db:seed');
+    return response()->json('All tables have been seeded with base data');
+});
+
 Auth::routes();
 
 Route::get('/', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
