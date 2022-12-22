@@ -37,6 +37,10 @@ Route::get('/pauldbseed', function(){
     Artisan::call('db:seed');
     return response()->json('All tables have been seeded with base data');
 });
+Route::get('/symlink', function(){
+    Artisan::call('storage:link');
+    return response()->json('Symlink created successfully');
+});
 
 Auth::routes();
 
