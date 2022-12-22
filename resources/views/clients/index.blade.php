@@ -36,7 +36,7 @@
                                             <tr>
                                                 <td>{{ $loop->iteration }}</td>
                                                 <td>{{ $client->name }}</td>
-                                                <td><img src="{{ asset('../storage/app/public/'.$client->image) }}" alt="client-logo" width="60px" height="40px"></td>
+                                                <td><img src="{{ asset('storage/app/public/'.$client->image) }}" alt="client-logo" width="60px" height="40px"></td>
 
                                                 <td>
                                                     @can('user-edit')

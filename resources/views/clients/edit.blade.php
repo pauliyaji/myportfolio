@@ -34,7 +34,7 @@
                                         </tr>
                                         <tr>
                                             <th>Current Image/Logo</th>
-                                            <td><img src="{{ asset('../storage/app/public/'.$client->image) }}" alt="client-logo" width="120px" height="100px"></td>
+                                            <td><img src="{{ asset('storage/app/public/'.$client->image) }}" alt="client-logo" width="120px" height="100px"></td>
                                         </tr>
                                         <tr>
                                             <th>Change Image/Logo</th>
