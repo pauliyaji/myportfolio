@@ -1,6 +1,9 @@
 <?php
 
+use App\Http\Controllers\ClientController;
 use App\Http\Controllers\PermissionController;
+use App\Http\Controllers\ProjectController;
+use App\Http\Controllers\SkillController;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 
@@ -44,4 +47,9 @@ Route::group(['middleware'=> ['auth']], function() {
    Route::resource('roles', RoleController::class);
    Route::resource('users', UserController::class);
    Route::resource('food', FoodController::class);
+    Route::resource('clients', ClientController::class);
+    Route::resource('skills', SkillController::class);
+    Route::resource('projects', ProjectController::class);
+
+
 });
