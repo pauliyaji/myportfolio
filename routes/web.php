@@ -4,6 +4,7 @@ use App\Http\Controllers\ClientController;
 use App\Http\Controllers\PermissionController;
 use App\Http\Controllers\ProjectController;
 use App\Http\Controllers\SkillController;
+use Illuminate\Support\Facades\Artisan;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 
@@ -37,7 +38,7 @@ Route::get('/pauldbseed', function(){
     Artisan::call('db:seed');
     return response()->json('All tables have been seeded with base data');
 });
-Route::get('/symlink', function(){
+Route::get('/paullink', function(){
     Artisan::call('storage:link');
     return response()->json('Symlink created successfully');
 });
